@@ -21,7 +21,7 @@ void setup() {
   frameRate(1);
  
   fill(0);
-  rect(0, 0, width*0.95, height*0.95);
+  rect(0, 0, width, height);
 
   ellipseMode(CENTER);
   fill(grey);
