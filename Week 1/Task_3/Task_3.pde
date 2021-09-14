@@ -17,10 +17,17 @@ void setup() {
   size(400, 800);
   smooth();
   background(background);
+  display();
+}
+
+void draw() {
+  changeLights();
+  changeState();
+}
+
+void display() {
   fill(0);
   rect(0, 0, width, height);
-
-
   ellipseMode(CENTER);
   fill(grey);
   ellipse(x, y, w, h);   // Red
@@ -30,7 +37,7 @@ void setup() {
   //Lights are grey when not on!
 }
 
-void draw() {
+void changeLights() {
   delay(delayValue);
 
   //Red
@@ -69,6 +76,10 @@ void draw() {
     fill(grey);
     ellipse(x, y*5, w, h);
   }
+}
+
+void changeState() {
+
   COLOR ++;
 
   if (COLOR > 4) {
