@@ -1,23 +1,31 @@
 class DiceCup {
 
-  int dices = 0;
-  color colorDie = color(0);   
+  int numberOfDice = 0;
 
-  Die[] dice = new Die[diceAmount+2];
-
+  Die[] dice = new Die[50];
   DiceCup() {
-    
-}
-  void addDie(Die die) {
-    dices++;
-    dice[dices] = die;
   }
-
-
-  void shake() {
-    for (int i = dices; i > 0; i--) {
-      dice[i].roll();
+  void addDie(Die die) {
+    numberOfDice++;
+    dice[numberOfDice] = die;
+  }
+  void sortDice() {
+    for (int i = numberOfDice; i > 0; i--) {
+      for (int j = numberOfDice; j > 0; j--) {
+        if (dice[i].faceValue >= dice[j].faceValue) {
+          Die temp = dice[i];
+          dice[i] = dice[j]; 
+          dice[j] = temp;
+        }
+      }
     }
+  }
+  void shake() {
+    for (int i = numberOfDice; i > 0; i--) {
+      dice[i].roll();
+      println(dice[i].faceValue);
+    }
+    sortDice();
   }
   void draw(int _x, int _y, int _dieSize) {
 
@@ -25,25 +33,23 @@ class DiceCup {
     int x = _x;
     int y = _y;
     int dieSize = _dieSize;
-    
-    for (int i = 1; i <= dices; i++) {
-      
-      fill(colorDie);
+
+    for (int i = 1 ; i <= numberOfDice; i++) {
 
       if (dice[i+1] != null) {
         if (dice[i].faceValue == dice[i+1].faceValue) {
 
           dice[i].draw(x, y, dieSize);
-          y = Math.round(y + dieSize * spacingFactor);
+          y = Math.round(y + dieSize * dieSpacingFactor);
+          
         } else {          
 
           dice[i].draw(x, y, dieSize);
-          x = Math.round(x + dieSize * spacingFactor);
+          x = Math.round(x + dieSize * dieSpacingFactor);
 
           y = _y;
         }
       }
-      
       dice[i].draw(x, y, dieSize);
     }
   }

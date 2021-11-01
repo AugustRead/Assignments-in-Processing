@@ -1,46 +1,57 @@
 class Die {
 
   int faceValue;
-  color colorEye;
-
-  int MIN = 1; 
+  int MIN = 1;
   int MAX = 6;
+
+  color colorDie;
+  color colorEye;
 
 
   Die() {
-    
-}
+    //colorDie = color(255);
+    //colorEye = color(0);
+  }
+
 
   void roll() {
     faceValue = MIN + (int)(Math.random() * ((MAX - MIN) + 1));
-    
-    colorEye = color(random(50,255), random(50,255), random(50,255));
-    println(faceValue);
+    if (faceValue % 2 == 0) {
+      colorDie = color(0);
+      colorEye = color(random(50, 255), random(50, 255), random(50, 255));
+    } else {
+      colorDie = color(0);
+      colorEye = color(random(50, 255), random(50, 255), random(50, 255));
+    }
   }
 
-  void draw(int _x, int _y, int _dieSize) {
+  void draw(int _x, int _y, int _size) {
 
-    float eyeSize = _dieSize * 0.16;
-   
+    float eyeSize = _size * 0.16;
+
+    noStroke();
+    fill(colorDie);
     rectMode(CENTER);
     ellipseMode(CENTER);
-    rect(_x, _y, _dieSize, _dieSize, 14);
+
+    rect(_x, _y, _size, _size, 14);
+
     fill(colorEye);
 
-    if (faceValue % 2 == 1) {
+    if ((faceValue == 1) || (faceValue == 3) || (faceValue == 5)) {
       circle(_x, _y, eyeSize);
     }
-    if (faceValue >= 2 && faceValue <= 6) {
-      circle(_x-_dieSize*1/3, _y-_dieSize*1/3, eyeSize);
-      circle(_x+_dieSize*1/3, _y+_dieSize*1/3, eyeSize);
+    if ((faceValue == 2) || (faceValue == 3) || (faceValue == 4) ||(faceValue == 5) || (faceValue == 6)) {
+      circle(_x-_size*1/3, _y-_size*1/3, eyeSize);
+      circle(_x+_size*1/3, _y+_size*1/3, eyeSize);
     }
-    if (faceValue >= 4 && faceValue <= 6) {
-      circle(_x-_dieSize*1/3, _y+_dieSize*1/3, eyeSize);
-      circle(_x+_dieSize*1/3, _y-_dieSize*1/3, eyeSize);
+    if ((faceValue == 4) ||(faceValue == 5) || (faceValue == 6)) {
+      circle(_x-_size*1/3, _y+_size*1/3, eyeSize);
+      circle(_x+_size*1/3, _y-_size*1/3, eyeSize);
     }
     if ((faceValue == 6)) {
-      circle(_x+_dieSize*1/3, _y, eyeSize);
-      circle(_x-_dieSize*1/3, _y, eyeSize);
+      circle(_x+_size*1/3, _y, eyeSize);
+      circle(_x-_size*1/3, _y, eyeSize);
     }
   }
 }
